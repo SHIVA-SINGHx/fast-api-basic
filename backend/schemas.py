@@ -16,6 +16,6 @@ class Product(ProductBase):
     id: int
     
     class config:
-        orm_mode = True
+        # orm_mode = True
         from_attribute = True
     
