@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+
+# Connecting database with postgresql
+
 db_url = "postgresql+psycopg2://postgres:Adminshiva123@localhost:5432/fastapi"
 engine = create_engine(db_url, echo=True)
 

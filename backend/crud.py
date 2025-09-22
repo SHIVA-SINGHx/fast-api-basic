@@ -1,24 +1,15 @@
-from fastapi import FastAPI
-
-from pydantic import BaseModel
 from models import Item
-from database_models import Base
+from sqlalchemy.orm import Session
+from schemas import ProductCreate
 
 
 
-app = FastAPI()
-
-
-class Product(BaseModel):
-    id: int
-    name: str
-    description: str
-    price: float
-    quantity: int
+def create_product(db: Session, data: ProductCreate):
+    product_instance = Item(**data.model_dump())
+    db.add(product_instance)
+    db.commit()
+    db.refresh(product_instance)
+    return product_instance
     
-    
-todos = []
-
-@app.get("/")
-def get_product():
-    return todos
+def get_product(db: Session):
+    return db.query(Item).all()
