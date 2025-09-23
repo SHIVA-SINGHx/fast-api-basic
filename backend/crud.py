@@ -26,3 +26,11 @@ def update_product(db: Session, product: ProductCreate, item_id: int):
         db.commit()
         db.refresh(product_queryset)
         return product_queryset
+    
+def delete_product(db: Session, id: int):
+    product_queryset = db.query(Item).filter(Item.id == id).first()
+    if product_queryset:
+        db.delete(product_queryset)
+        db.commit()
+        
+        return product_queryset
