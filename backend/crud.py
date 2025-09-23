@@ -16,3 +16,13 @@ def get_product(db: Session):
 
 def get_product_id(db: Session, item_id: int):
     return db.query(Item).filter(Item.id == item_id).first()
+
+def update_product(db: Session, product: ProductCreate, item_id: int):
+    product_queryset = db.query(Item).filter(Item.id == item_id).first()
+    if product_queryset:
+        for key, value in product.dict().items():  
+            setattr(product_queryset, key, value)
+
+        db.commit()
+        db.refresh(product_queryset)
+        return product_queryset

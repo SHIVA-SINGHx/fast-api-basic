@@ -27,3 +27,11 @@ def get_product_by_id(id: int, db: Session = Depends(get_db)):
 @app.post("/products/", response_model=schemas.Product)
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return crud.create_product(db, product)
+
+#update products
+@app.put("/products/{id}", response_model=schemas.Product)
+def update_product(id: int, product: schemas.ProductCreate, db: Session = Depends(get_db)):
+    db_update = crud.update_product(db, product, id)
+    if not db_update:
+        raise HTTPException(status_code=404, detail="Invalid Update id")
+    return db_update
