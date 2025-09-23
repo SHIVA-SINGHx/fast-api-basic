@@ -13,3 +13,6 @@ def create_product(db: Session, data: ProductCreate):
     
 def get_product(db: Session):
     return db.query(Item).all()
+
+def get_product_id(db: Session, item_id: int):
+    return db.query(Item).filter(Item.id == item_id).first()

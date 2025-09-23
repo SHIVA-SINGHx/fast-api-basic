@@ -15,9 +15,15 @@ def on_startup():
 def get_all_products(db: Session= Depends(get_db)):
     return crud.get_product(db)
 
+# get only one product
+@app.get("/products/{id}", response_model=schemas.Product)
+def get_product_by_id(id: int, db: Session = Depends(get_db)):
+    product_queryset = crud.get_product_id(db, id)
+    if product_queryset:
+        return product_queryset
+    raise HTTPException(status_code=404, detail="Invalid product id")
+
 # create products
 @app.post("/products/", response_model=schemas.Product)
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return crud.create_product(db, product)
-
-# get only one product
