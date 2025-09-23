@@ -16,6 +16,8 @@ def get_all_products(db: Session= Depends(get_db)):
     return crud.get_product(db)
 
 # create products
-@app.post("/prodcuts/", response_model = list[schemas.Product])
-def create_prodcuts(product: schemas.ProductCreate, db: Session= Depends(get_db)):
-    return crud.create_product(db,product)
+@app.post("/products/", response_model=schemas.Product)
+def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
+    return crud.create_product(db, product)
+
+# get only one product

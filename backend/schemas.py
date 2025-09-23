@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 
 class ProductBase(BaseModel):
-    id: int
     name: str
     description: str
     price: float
